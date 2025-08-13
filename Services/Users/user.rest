@@ -1,0 +1,126 @@
+@host = http://localhost:5500/api/v1
+### Make sure there is space between "Content-Type...." to the JSON
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl8xIiwiZW1haWwiOiJnaW9yYUBnbWFpbC5jb20iLCJoYXNoX3Bhc3N3b3JkIjoiJDJhJDEyJDBoWFIvVFNkeDhoMTJyM2ZDdkNLdXVwQ3pudktYZzNYbFE5NUhrakhHUWJXbW5aVzdNa1plIiwiY3JlYXRlZF9hdCI6IjIwMjEtMDEtMDFUMDE6MjA6MDAuMDAwWiIsInVzZXJuYW1lIjoiSnVzdE9uZUNoaXAiLCJyb2xlIjoiYWRtaW4iLCJpc0RlbGV0ZWQiOmZhbHNlLCJ1c2VyU3RhdGlzdGljcyI6eyJnYW1lc1JlY29yZGVkIjozLCJwcm9ibGVtc1NvbHZlZCI6MSwid2lubmluZ1N0cmVhayI6MywibWF4UHJvZml0UGVyc29uYWwiOjU1NywibWF4UHJvZml0R2FtZUlEIjozLCJtYXhDaGlwc09uVGFibGUiOjM2MDAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6MSwibWF4TG9zc0FsbCI6LTk0NywibWF4UHJvZml0QWxsIjoxMzQ0LCJtYXhMb3NzQWxsTmFtZSI6IlBhcmRvIiwibWF4UHJvZml0QWxsTmFtZSI6IkVpbG9uIiwibWF4TG9zc0FsbEdhbWVJRCI6MSwibWF4UHJvZml0QWxsR2FtZUlEIjoxfSwiZmF2UGxheWVycyI6W3sicGxheWVyTmFtZSI6IlJvbiIsInBob25lIjoiMDU0LTEyMy0xMjM0IiwiZW1haWwiOiJyb25AZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAxLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNC0zMFQwMjowNjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTI2OH0seyJwbGF5ZXJOYW1lIjoiTGVybmVyIiwicGhvbmUiOiIwNTQtMTIzLTEyMzUiLCJlbWFpbCI6ImxlcmlAZ21haWwuY29tIiwiZ3JvdXAiOiJSdXBwaW4gRnJpZW5kcyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAyLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNS0zMFQyMzozMjowMC4wMDBaIiwicHJvZml0TG9zcyI6MTUyfSx7InBsYXllck5hbWUiOiJWZXh5IiwicGhvbmUiOiIwNTQtMTIzLTEyMzYiLCJlbWFpbCI6InZleGlAZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAzLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNS0zMFQyMzozMjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTk3Nn0seyJwbGF5ZXJOYW1lIjoiUGFyZG8iLCJwaG9uZSI6IjA1NC0xMjMtMTIzNyIsImVtYWlsIjoicGFyZG9AZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjA0LjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNC0zMFQwMjowNjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTk0N31dLCJpYXQiOjE3NTUwMjAyMTAsImV4cCI6MTc1NTAyNzQxMH0.H_l-W_kovw2MiNMklC4dER1acWJv-JKR_CuMawjiwNg
+
+# WAYPOINT: Create calls
+### [X]
+### Will create a blank new user
+POST {{host}}/users
+Content-Type: application/json
+
+{
+    "id": "App_User_New",
+    "email": "t@tt.com",
+    "pass": "SecurePass123",
+    "username": "I'mTheBest"
+}
+
+
+### [X]
+### Will create a new favoritePlayer
+POST {{host}}/users/favPlayer/App_User_New
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "playerName": "GeorgeTheBoss",
+  "phone": "054-2422222",
+  "email": "gg@gg.com",
+  "group": "TheBoyz"
+}
+
+
+
+# WAYPOINT: Read calls
+### [X] 
+### Get All users
+### Will retrieve all users
+GET {{host}}/users
+
+### [X] 
+### Get Specific user 
+### Will retrieve a specific user by ID
+GET {{host}}/users/App_User_3
+
+
+# WAYPOINT: LOGIN calls
+### LOGIN show-case 1
+### [X]
+### USER LOGIN EXAMPLE
+POST {{host}}/users/login
+Content-Type: application/json
+
+{
+    "email": "nati@gmail.com",
+    "pass": "nati@gmail.comNatiTheKing"
+}
+
+### LOGIN show-case 2
+### [X]
+### **ADMIN** LOGIN EXAMPLE
+POST {{host}}/users/login
+Content-Type: application/json
+
+{
+    "email": "giora@gmail.com",
+    "pass": "giora@gmail.comJustOneChip"
+}
+
+
+# WAYPOINT: Update calls
+### Update users EMAIL
+### [X]
+PUT {{host}}/users/email/App_User_New
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl9OZXciLCJlbWFpbCI6InRAdHQuY29tIiwiaGFzaF9wYXNzd29yZCI6IiQyYiQxMiQ4MEpjSUcwUjZ4Z09hbnM5L1ZzckxlWTJqb1FVQTFCSHl1aDQ5Q2ltcGRROEdhQjc2UDI3dSIsInVzZXJuYW1lIjoiSSdtVGhlQmVzdCIsInJvbGUiOiJ1c2VyIiwiY3JlYXRlZF9hdCI6IjIwMjUtMDgtMTJUMDE6MTQ6MDMuMDE1WiIsImlzRGVsZXRlZCI6ZmFsc2UsInVzZXJTdGF0aXN0aWNzIjp7ImdhbWVzUmVjb3JkZWQiOjAsInByb2JsZW1zU29sdmVkIjowLCJ3aW5uaW5nU3RyZWFrIjowLCJtYXhQcm9maXRQZXJzb25hbCI6MCwibWF4UHJvZml0R2FtZUlEIjpudWxsLCJtYXhDaGlwc09uVGFibGUiOjAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6bnVsbCwibWF4TG9zc0FsbCI6MCwibWF4UHJvZml0QWxsIjowLCJtYXhMb3NzQWxsTmFtZSI6IiIsIm1heFByb2ZpdEFsbE5hbWUiOiIiLCJtYXhMb3NzQWxsR2FtZUlEIjpudWxsLCJtYXhQcm9maXRBbGxHYW1lSUQiOm51bGx9LCJmYXZQbGF5ZXJzIjpbXSwiaWF0IjoxNzU0OTYxMjQzLCJleHAiOjE3NTQ5Njg0NDN9.cdeT67bjt_2ThjLC6eQzTR5mdgUQn8PFK1h0p4MQyiQ
+Content-Type: application/json
+
+{
+  "newEmail": "dd@dd.com",
+  "oldEmail": "t@tt.com"
+}
+
+### Update users PASSWORD
+### [X]
+PUT {{host}}/users/password/App_User_New
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl9OZXciLCJlbWFpbCI6InRAdHQuY29tIiwiaGFzaF9wYXNzd29yZCI6IiQyYiQxMiQ4MEpjSUcwUjZ4Z09hbnM5L1ZzckxlWTJqb1FVQTFCSHl1aDQ5Q2ltcGRROEdhQjc2UDI3dSIsInVzZXJuYW1lIjoiSSdtVGhlQmVzdCIsInJvbGUiOiJ1c2VyIiwiY3JlYXRlZF9hdCI6IjIwMjUtMDgtMTJUMDE6MTQ6MDMuMDE1WiIsImlzRGVsZXRlZCI6ZmFsc2UsInVzZXJTdGF0aXN0aWNzIjp7ImdhbWVzUmVjb3JkZWQiOjAsInByb2JsZW1zU29sdmVkIjowLCJ3aW5uaW5nU3RyZWFrIjowLCJtYXhQcm9maXRQZXJzb25hbCI6MCwibWF4UHJvZml0R2FtZUlEIjpudWxsLCJtYXhDaGlwc09uVGFibGUiOjAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6bnVsbCwibWF4TG9zc0FsbCI6MCwibWF4UHJvZml0QWxsIjowLCJtYXhMb3NzQWxsTmFtZSI6IiIsIm1heFByb2ZpdEFsbE5hbWUiOiIiLCJtYXhMb3NzQWxsR2FtZUlEIjpudWxsLCJtYXhQcm9maXRBbGxHYW1lSUQiOm51bGx9LCJmYXZQbGF5ZXJzIjpbXSwiaWF0IjoxNzU0OTYxMjQzLCJleHAiOjE3NTQ5Njg0NDN9.cdeT67bjt_2ThjLC6eQzTR5mdgUQn8PFK1h0p4MQyiQ
+Content-Type: application/json
+
+{
+  "newPassword": "newPass321@", 
+  "oldPassword": "SecurePass123"
+}
+
+
+### Update users USERNAME 
+### [X]
+PUT {{host}}/users/username/App_User_New
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl9OZXciLCJlbWFpbCI6InRAdHQuY29tIiwiaGFzaF9wYXNzd29yZCI6IiQyYiQxMiQ4MEpjSUcwUjZ4Z09hbnM5L1ZzckxlWTJqb1FVQTFCSHl1aDQ5Q2ltcGRROEdhQjc2UDI3dSIsInVzZXJuYW1lIjoiSSdtVGhlQmVzdCIsInJvbGUiOiJ1c2VyIiwiY3JlYXRlZF9hdCI6IjIwMjUtMDgtMTJUMDE6MTQ6MDMuMDE1WiIsImlzRGVsZXRlZCI6ZmFsc2UsInVzZXJTdGF0aXN0aWNzIjp7ImdhbWVzUmVjb3JkZWQiOjAsInByb2JsZW1zU29sdmVkIjowLCJ3aW5uaW5nU3RyZWFrIjowLCJtYXhQcm9maXRQZXJzb25hbCI6MCwibWF4UHJvZml0R2FtZUlEIjpudWxsLCJtYXhDaGlwc09uVGFibGUiOjAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6bnVsbCwibWF4TG9zc0FsbCI6MCwibWF4UHJvZml0QWxsIjowLCJtYXhMb3NzQWxsTmFtZSI6IiIsIm1heFByb2ZpdEFsbE5hbWUiOiIiLCJtYXhMb3NzQWxsR2FtZUlEIjpudWxsLCJtYXhQcm9maXRBbGxHYW1lSUQiOm51bGx9LCJmYXZQbGF5ZXJzIjpbXSwiaWF0IjoxNzU0OTYxMjQzLCJleHAiOjE3NTQ5Njg0NDN9.cdeT67bjt_2ThjLC6eQzTR5mdgUQn8PFK1h0p4MQyiQ
+Content-Type: application/json
+
+{
+  "newUsername": "It'sWorking!"
+}
+
+
+# WAYPOINT: Delete calls
+### Physical Delete 
+### [X]
+DELETE {{host}}/users/physical/App_User_New
+Authorization: Bearer {{token}}
+
+
+### Logical Delete 
+### [X]
+DELETE {{host}}/users/logical/App_User_New
+Authorization: Bearer {{token}}
+
+### favPlayer Delete 
+### [X]
+DELETE {{host}}/users/favPlayer/App_User_New
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "favPlayerName": "James"
+}
+

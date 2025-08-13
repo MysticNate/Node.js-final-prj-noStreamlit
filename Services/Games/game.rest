@@ -1,0 +1,168 @@
+@host = http://localhost:5500/api/v1
+### Make sure there is space between "Content-Type...." to the JSON
+
+# WAYPOINT: Game CRUD Test File
+# Replace the JWT token below with a valid token from user login
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl8yIiwiZW1haWwiOiJuYXRpQGdtYWlsLmNvbSIsImhhc2hfcGFzc3dvcmQiOiIkMmEkMTIkWnNUR1JEZjk5NThyOUI3TlVCT0Y3LkIyMWx4cDlsbEMvdS9TOFhxcWNJYWlvSE1pL0hhMmUiLCJjcmVhdGVkX2F0IjoiMjAyMS0wMS0wMVQwMToyMTowMC4wMDBaIiwidXNlcm5hbWUiOiJOYXRpVGhlS2luZyIsInJvbGUiOiJ1c2VyIiwiaXNEZWxldGVkIjpmYWxzZSwidXNlclN0YXRpc3RpY3MiOnsiZ2FtZXNSZWNvcmRlZCI6MywicHJvYmxlbXNTb2x2ZWQiOjMsIndpbm5pbmdTdHJlYWsiOjIsIm1heExvc3NQZXJzb25hbCI6LTEwMDAsIm1heFByb2ZpdFBlcnNvbmFsIjoxNTkuNSwibWF4TG9zc0dhbWVJRCI6MSwibWF4UHJvZml0R2FtZUlEIjoyLCJtYXhDaGlwc09uVGFibGUiOjYxNTAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6MSwibWF4TG9zc0FsbCI6LTIyMDAsIm1heFByb2ZpdEFsbCI6MTM0NSwibWF4TG9zc0FsbE5hbWUiOiJTaGF5IiwibWF4UHJvZml0QWxsTmFtZSI6IkRhdmlkIiwibWF4TG9zc0FsbEdhbWVJRCI6MSwibWF4UHJvZml0QWxsR2FtZUlEIjoxfSwiZmF2UGxheWVycyI6W3sicGxheWVyTmFtZSI6IkRhdmlkIiwicGhvbmUiOiIwNTQtNDU2LTc4OTAiLCJlbWFpbCI6ImRhdmlkQGdtYWlsLmNvbSIsImdyb3VwIjoiVXN1YWwgU3VzcGVjdHMiLCJjcmVhdGVkIjoiMjAyMS0wMS0wMVQwMTozMDowMS4wMDBaIiwidXBkYXRlZCI6IjIwMjUtMDItMDJUMDM6NDY6MDAuMDAwWiIsInByb2ZpdExvc3MiOjEzNDV9LHsicGxheWVyTmFtZSI6IkRvciIsInBob25lIjoiMDU0LTQ1Ni03ODkxIiwiZW1haWwiOiJkb3JAZ21haWwuY29tIiwiZ3JvdXAiOiJVc3VhbCBTdXNwZWN0cyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjMwOjAyLjAwMFoiLCJ1cGRhdGVkIjoiMjAyNS0wMy0yOVQwMDo1ODowMC4wMDBaIiwicHJvZml0TG9zcyI6LTMxOX0seyJwbGF5ZXJOYW1lIjoiU2hheSIsInBob25lIjoiMDU0LTQ1Ni03ODkyIiwiZW1haWwiOiJzaGF5QGdtYWlsLmNvbSIsImdyb3VwIjoiVXN1YWwgU3VzcGVjdHMiLCJjcmVhdGVkIjoiMjAyMS0wMS0wMVQwMTozMDowMy4wMDBaIiwidXBkYXRlZCI6IjIwMjUtMDMtMjlUMDA6NTg6MDAuMDAwWiIsInByb2ZpdExvc3MiOi0yNzUwfV0sImlhdCI6MTc1NTA0NjUxOSwiZXhwIjoxNzU1MDUzNzE5fQ.QO6_OzIUkuWZkfT9LTMqBcUcwEdMMwgaxOac7RbMLaQ
+
+# WAYPOINT: Create calls (POST)
+### [X] Create a new game
+POST {{host}}/games
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "_id": "App_Game_Test_1",
+    "userGameID": 1,
+    "type": "Texas Hold'em",
+    "location": "Test Location",
+    "gameUserNote": "This is a test game"
+}
+
+### [X] Add player to game
+POST {{host}}/games/player/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "playerName": "TestPlayer1",
+    "buyIn": 100,
+    "cashOut": 150
+}
+
+### [X] Add another player to game
+POST {{host}}/games/player/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "playerName": "TestPlayer2",
+    "buyIn": 200,
+    "cashOut": 50
+}
+
+### [X] Add debt to game
+POST {{host}}/games/debt/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "debtor": "TestPlayer2",
+    "creditor": "TestPlayer1",
+    "amount": 150,
+    "paymentType": "BIT"
+}
+
+# WAYPOINT: Read calls (GET)
+### [X] Get all games (admin sees all, users see their own)
+GET {{host}}/games
+Authorization: Bearer {{token}}
+
+### [X] Get specific game by ID
+GET {{host}}/games/App_Game_Test_1
+Authorization: Bearer {{token}}
+
+### [X] Get games by specific user ID
+GET {{host}}/games/user/App_User_2
+Authorization: Bearer {{token}}
+
+# WAYPOINT: Update calls (PUT)
+### [X] Update entire game
+PUT {{host}}/games/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "location": "Updated Location",
+    "gameUserNote": "Updated game note",
+    "type": "Mixed Games"
+}
+
+### [X] Resolve game
+PUT {{host}}/games/resolve/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "resolvedString": "Game completed successfully. TestPlayer1 won 50 chips."
+}
+
+### [X] Update player in game
+PUT {{host}}/games/player/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "playerName": "TestPlayer1",
+    "updates": {
+        "cashOut": 180,
+        "buyIn": 100
+    }
+}
+
+### [X] Update debt in game
+PUT {{host}}/games/debt/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "debtor": "TestPlayer2",
+    "creditor": "TestPlayer1",
+    "updates": {
+        "amount": 200,
+        "paymentType": "Cash"
+    }
+}
+
+# WAYPOINT: Delete calls (DELETE)
+### [X] Remove player from game
+DELETE {{host}}/games/player/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "playerName": "TestPlayer2"
+}
+
+### [X] Remove debt from game
+DELETE {{host}}/games/debt/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "debtor": "TestPlayer2",
+    "creditor": "TestPlayer1"
+}
+
+### [X] Delete entire game (run this last)
+DELETE {{host}}/games/App_Game_Test_1
+Authorization: Bearer {{token}}
+
+# WAYPOINT: Error Testing
+### [X] Test non-existent game
+GET {{host}}/games/NonExistentGame
+Authorization: Bearer {{token}}
+
+### [X] Test unauthorized access (no token)
+GET {{host}}/games/App_Game_Test_1
+
+### [X] Test invalid game creation (missing required fields)
+POST {{host}}/games
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "userGameID": 2,
+    "type": "Poker"
+    // Missing _id and location
+}
+
+### [X] Test adding player with missing data
+POST {{host}}/games/player/App_Game_Test_1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "playerName": "IncompletePlayer"
+    // Missing buyIn
+}

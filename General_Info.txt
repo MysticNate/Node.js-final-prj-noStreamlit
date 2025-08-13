@@ -1,0 +1,14 @@
+Passwords for different users
+-----------------------------
+
+ID: App_User_1
+Password: giora@gmail.comJustOneChip
+
+ID: App_User_2
+Password: nati@gmail.comNatiTheKing
+
+ID: App_User_3
+Password: mor@gmail.comMorIsMore
+
+ID: App_User_New
+Password: I'mTheBest

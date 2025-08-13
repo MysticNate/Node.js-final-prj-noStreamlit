@@ -1,0 +1,169 @@
+@host = http://localhost:5500/api/v1
+### Make sure there is space between "Content-Type...." to the JSON
+
+# WAYPOINT: Global Statistics CRUD Test File
+# Replace the JWT token below with a valid admin token
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJBcHBfVXNlcl8xIiwiZW1haWwiOiJnaW9yYUBnbWFpbC5jb20iLCJoYXNoX3Bhc3N3b3JkIjoiJDJhJDEyJDBoWFIvVFNkeDhoMTJyM2ZDdkNLdXVwQ3pudktYZzNYbFE5NUhrakhHUWJXbW5aVzdNa1plIiwiY3JlYXRlZF9hdCI6IjIwMjEtMDEtMDFUMDE6MjA6MDAuMDAwWiIsInVzZXJuYW1lIjoiSnVzdE9uZUNoaXAiLCJyb2xlIjoiYWRtaW4iLCJpc0RlbGV0ZWQiOmZhbHNlLCJ1c2VyU3RhdGlzdGljcyI6eyJnYW1lc1JlY29yZGVkIjozLCJwcm9ibGVtc1NvbHZlZCI6MSwid2lubmluZ1N0cmVhayI6MywibWF4UHJvZml0UGVyc29uYWwiOjU1NywibWF4UHJvZml0R2FtZUlEIjozLCJtYXhDaGlwc09uVGFibGUiOjM2MDAsIm1heENoaXBzT25UYWJsZUdhbWVJRCI6MSwibWF4TG9zc0FsbCI6LTk0NywibWF4UHJvZml0QWxsIjoxMzQ0LCJtYXhMb3NzQWxsTmFtZSI6IlBhcmRvIiwibWF4UHJvZml0QWxsTmFtZSI6IkVpbG9uIiwibWF4TG9zc0FsbEdhbWVJRCI6MSwibWF4UHJvZml0QWxsR2FtZUlEIjoxfSwiZmF2UGxheWVycyI6W3sicGxheWVyTmFtZSI6IlJvbiIsInBob25lIjoiMDU0LTEyMy0xMjM0IiwiZW1haWwiOiJyb25AZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAxLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNC0zMFQwMjowNjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTI2OH0seyJwbGF5ZXJOYW1lIjoiTGVybmVyIiwicGhvbmUiOiIwNTQtMTIzLTEyMzUiLCJlbWFpbCI6ImxlcmlAZ21haWwuY29tIiwiZ3JvdXAiOiJSdXBwaW4gRnJpZW5kcyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAyLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNS0zMFQyMzozMjowMC4wMDBaIiwicHJvZml0TG9zcyI6MTUyfSx7InBsYXllck5hbWUiOiJWZXh5IiwicGhvbmUiOiIwNTQtMTIzLTEyMzYiLCJlbWFpbCI6InZleGlAZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjAzLjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNS0zMFQyMzozMjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTk3Nn0seyJwbGF5ZXJOYW1lIjoiUGFyZG8iLCJwaG9uZSI6IjA1NC0xMjMtMTIzNyIsImVtYWlsIjoicGFyZG9AZ21haWwuY29tIiwiZ3JvdXAiOiJLZmFyLVlvbmEgT0cncyIsImNyZWF0ZWQiOiIyMDIxLTAxLTAxVDAxOjI1OjA0LjAwMFoiLCJ1cGRhdGVkIjoiMjAyMy0wNC0zMFQwMjowNjowMC4wMDBaIiwicHJvZml0TG9zcyI6LTk0N31dLCJpYXQiOjE3NTUwMjk0NzQsImV4cCI6MTc1NTAzNjY3NH0.QIq70CsDALCvEo-Dpf8tiIONB8lMqmC6DMOgkTrRdYQ
+
+# WAYPOINT: Read Global Stats
+### [X] Get current global statistics
+GET {{host}}/global
+Authorization: Bearer {{token}}
+
+# WAYPOINT: Update Global Stats
+### [X] Update global statistics manually
+PUT {{host}}/global
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "totalGamesRecorded": 15,
+    "totalProblemsSolved": 8,
+    "totalUsers": 25
+}
+
+### [X] Increment total games recorded by 1
+PUT {{host}}/global/increment/totalGamesRecorded
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": 1
+}
+
+### [X] Increment total problems solved by 1
+PUT {{host}}/global/increment/totalProblemsSolved
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": 1
+}
+
+### [X] Increment total users by 1
+PUT {{host}}/global/increment/totalUsers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": 1
+}
+
+### [X] Decrement total games recorded by 1 (simulate deletion)
+PUT {{host}}/global/increment/totalGamesRecorded
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": -1
+}
+
+### [X] Decrement total problems solved by 1 (simulate unresolved)
+PUT {{host}}/global/increment/totalProblemsSolved
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": -1
+}
+
+### [X] Decrement total users by 1 (simulate user removal)
+PUT {{host}}/global/increment/totalUsers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": -1
+}
+
+### [X] Reset all statistics to 0
+PUT {{host}}/global/reset
+Authorization: Bearer {{token}}
+
+# WAYPOINT: Error Testing
+### [X] Test invalid field increment
+PUT {{host}}/global/increment/invalidField
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": 1
+}
+
+### [X] Test non-admin access (will fail)
+GET {{host}}/global
+
+### [X] Test invalid update data
+PUT {{host}}/global
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "totalGamesRecorded": -5,
+    "totalProblemsSolved": "invalid",
+    "totalUsers": 10
+}
+
+### [X] Test invalid increment value
+PUT {{host}}/global/increment/totalGamesRecorded
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "value": "not_a_number"
+}
+
+# WAYPOINT: Integration Testing
+# Test that game operations automatically update global stats
+
+### [X] Check global stats before creating a game
+GET {{host}}/global
+Authorization: Bearer {{token}}
+
+### [X] Create a test game (should increment totalGamesRecorded)
+POST {{host}}/games
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "_id": "Global_Test_Game_2",
+    "userGameID": 939,
+    "type": "Texas Hold'em",
+    "location": "Global Test Location",
+    "gameUserNote": "Testing global stats integration"
+}
+
+### [X] Check global stats after creating a game
+GET {{host}}/global
+Authorization: Bearer {{token}}
+
+# WAYPOINT: Integration Testing
+# Test that user operations automatically update global stats
+
+### [X] Check global stats before creating a user
+GET {{host}}/global
+Authorization: Bearer {{token}}
+
+### [X] Create a test user (should increment totalUsers)
+POST {{host}}/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "id": "App_User_New2",
+    "email": "t@tt.com",
+    "pass": "SecurePass123",
+    "username": "I'mTheBest"
+}
+
+### [X] Check global stats after creating a user
+GET {{host}}/global
+Authorization: Bearer {{token}}
+
+### [X] Delete test user (should decrement totalUsers)
+DELETE {{host}}/users/physical/App_User_New2
+Authorization: Bearer {{token}}
+
+### [X] Check final global stats after deleting user
+GET {{host}}/global
+Authorization: Bearer {{token}}
