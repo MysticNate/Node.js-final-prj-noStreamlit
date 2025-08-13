@@ -9,7 +9,7 @@ import v1Router from "./Routes/v1.js";
 import express from "express";
 
 // EXPRESS \\
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 const server = express();
 server.use(express.json()); // Supporting read write
 server.use(express.urlencoded({ extended: true })); // Form support
@@ -43,9 +43,9 @@ server.listen(PORT, () => console.log(`http://localhost:${PORT}/`));
 // funcs.CreateDB();
 // // ...................................................
 // // Testing
-// server.get("/", (req, res) => {
-//   res.send("Welcome to HP"); // We cannot send 2 'send' functions, after using sent it will end.
-// });
+server.get("/", (req, res) => {
+  res.send("Welcome to HP"); // We cannot send 2 'send' functions, after using sent it will end.
+});
 // // ...................................................
 // server.post("/", (req, res) => {
 //   res.send("Hello from post :)");
