@@ -261,20 +261,29 @@ export async function updateUserAdmin(req, res) {
 export async function loginUser(req, res) {
   let { email, pass } = req.body;
 
-  if (!email || !pass)
-    res.status(400).json({ message: "Some or all credentials are missing.." });
+  if (!email || !pass) {
+    return res.status(400).json({ message: "Some or all credentials are missing.." });
+  }
 
   let user = await md.User.userLogin(email, pass);
 
-  if (!user) res.status(401).json({ message: "Invalid credentials!" });
-  // IMPORTANT Deleting a field \\
-  else delete user.pass;
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials!" });
+  }
 
-  let token = jwt.sign(user, SECRET, {
+  // Convert to plain object and remove password
+  const userPayload = {
+    _id: user._id,
+    email: user.email,
+    role: user.role
+  };
+
+  let token = jwt.sign(userPayload, SECRET, {
     algorithm: process.env.JWT_ALGORITHM,
     expiresIn: process.env.JWT_LOGIN_TIME,
   });
-  res.status(200).json({ message: "Login Successful!", token });
+
+  return res.status(200).json({ message: "Login Successful!", token });
 }
 
 // PROFILE PICTURE FUNCTIONS
