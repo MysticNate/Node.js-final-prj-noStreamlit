@@ -1,5 +1,5 @@
 import { SECRET } from "../../global.js";
-import * as md from "./Game.model.js";
+import * as md from "./game.model.js";
 import "dotenv/config";
 import {
   trackGameAdded,
